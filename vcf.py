@@ -63,16 +63,16 @@ for line in sys.stdin:
                             town = 'Praha 1'
                             zipcode = '118 00'
                         print(f'ADR;TYPE=work:;{street};Office {office};{town};;{zipcode};Czechia')
-                    if isphone(workphone):
-                        if len(workphone) == 4:
-                            print('TEL;TYPE=pager:{}'.format(workphone))
-                            print('TEL;TYPE=work:+420 95155 {}'.format(workphone))
-                        else:
-                            print('TEL;TYPE=work:+420 {}'.format(workphone))
                     if isphone(homephone):
                         print('TEL;TYPE=home:+420 {}'.format(homephone))
                     if isphone(mobilephone):
                         print('TEL;TYPE=cell:+420 {}'.format(mobilephone))
+                    if isphone(workphone):
+                        if len(workphone) == 4:
+                            print('TEL;TYPE=work:+420 95155 {}'.format(workphone))
+                            print('TEL;TYPE=pager:{}'.format(workphone))
+                        else:
+                            print('TEL;TYPE=work:+420 {}'.format(workphone))
                     if email:
                         if '@' not in email:
                             email = email + '@ufal.mff.cuni.cz'
