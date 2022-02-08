@@ -47,12 +47,12 @@ for line in sys.stdin:
                     print('BEGIN:VCARD')
                     print('VERSION:3.0')
                     print('FN:{}'.format(name))
-                    print('N:{};{};;;'.format(surname, firstname))
+                    print(f'N:{surname};{firstname};;;')
                     if department:
                         if department == 'ÚFAL':
-                            print('ORG:MFF UK;ÚFAL;')
+                            print('ORG:MFF UK;ÚFAL')
                         else:
-                            print('ORG:{};;'.format(department))
+                            print(f'ORG:{department}')
                     if office:
                         if office.startswith('N'):
                             street = 'V Holešovičkách 747/2'
@@ -62,18 +62,21 @@ for line in sys.stdin:
                             street = 'Malostranské náměstí 25'
                             town = 'Praha 1'
                             zipcode = '118 00'
-                        print('ADR;TYPE=work:;Office {};{};{};;{};'.format(office, street, town, zipcode))
+                        print(f'ADR;TYPE=work:;{street};Office {office};{town};;{zipcode};Czechia')
                     if isphone(workphone):
-                        print('TEL;TYPE=work:{}'.format(workphone))
-                        print('TEL;TYPE=work:+420 95155 {}'.format(workphone))
+                        if len(workphone) == 4:
+                            print('TEL;TYPE=pager:{}'.format(workphone))
+                            print('TEL;TYPE=work:+420 95155 {}'.format(workphone))
+                        else:
+                            print('TEL;TYPE=work:+420 {}'.format(workphone))
                     if isphone(homephone):
-                        print('TEL;TYPE=home:{}'.format(homephone))
+                        print('TEL;TYPE=home:+420 {}'.format(homephone))
                     if isphone(mobilephone):
-                        print('TEL;TYPE=cell:{}'.format(mobilephone))
+                        print('TEL;TYPE=cell:+420 {}'.format(mobilephone))
                     if email:
                         if '@' not in email:
                             email = email + '@ufal.mff.cuni.cz'
-                        print('EMAIL'.format(email))
+                        print('EMAIL;TYPE=work:{}'.format(email))
                     print('END:VCARD')
 
 
